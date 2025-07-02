@@ -1,0 +1,122 @@
+Portfolio 3D Nhân Vật Hoạt Hình Có Thể Di Chuyển (dự án nzaoo_portfolio)
+🎯 Mục tiêu
+Tôi muốn tạo một website portfolio 3D sáng tạo, dùng được lâu dài — từ khi tôi mới học lập trình cho đến khi trở thành một full-stack developer thực thụ.
+Portfolio sẽ có nhân vật hoạt hình do người dùng điều khiển (WASD), di chuyển trong một không gian 3D nhỏ. Mỗi khu vực trong thế giới sẽ tương ứng với một phần của portfolio như: Giới thiệu, Dự án, Blog, Contact, v.v.
+
+🧩 Tổng quan trải nghiệm người dùng
+Góc nhìn thứ ba (third-person), nhân vật đó là con mèo có thể đi lại tự do bằng phím.
+
+Khi nhân vật lại gần một vật thể (bàn, máy tính, cửa...), sẽ hiện tooltip hoặc popup UI tương ứng.
+
+Mỗi khu vực là một phần trong portfolio:
+
+Vật thể / Khu vực 3D	Hiển thị nội dung
+🏠 Căn phòng	Giới thiệu bản thân (About)
+💻 Bàn máy tính	Các dự án đã làm (Projects)
+📚 Giá sách	Blog / Nhật ký học tập
+🚪 Cửa ra	Liên hệ + Tải CV
+🔬 Bàn lab nhỏ	Playground - thử nghiệm code
+
+🛠️ Yêu cầu kỹ thuật
+🧑‍💻 Frontend stack:
+React + Next.js
+
+React Three Fiber (@react-three/fiber)
+
+Drei (@react-three/drei)
+
+Tailwind CSS (cho UI overlay)
+
+Framer Motion (cho animation UI)
+
+Zustand hoặc React Context để quản lý tương tác
+
+🌐 3D model & interaction:
+Tải mô hình nhân vật hoạt hình (.glb) từ Mixamo hoặc Ready Player Me
+
+Tích hợp animation (idle, walk, wave…)
+
+Điều khiển nhân vật bằng WASD
+
+Raycast hoặc khoảng cách để trigger tương tác
+
+Gắn mô hình environment (bàn, cửa, laptop…) từ Blender hoặc thư viện free
+
+📦 Dữ liệu:
+Dự án, kỹ năng, mốc thời gian, bài viết… đều nên load từ file .ts hoặc .json hoặc .mdx (tùy)
+
+Nội dung dễ cập nhật → mở rộng sau này mà không sửa code
+
+🚀 Hosting:
+Dự kiến deploy bằng Vercel
+
+📁 Cấu trúc thư mục mong muốn
+bash
+Copy
+Edit
+nzaoo_portfolio/
+├── public/
+│   ├── models/
+│   │   ├── character.glb
+│   │   └── environment.glb
+│   └── assets/
+│       ├── avatar.png
+│       └── favicon.ico
+│
+├── src/
+│   ├── components/
+│   │   ├── CanvasScene.tsx
+│   │   ├── Character.tsx
+│   │   ├── Environment.tsx
+│   │   ├── InteractionPrompt.tsx
+│   │   └── UIOverlay.tsx
+│   │
+│   ├── pages/
+│   │   ├── index.tsx
+│   │   └── api/
+│   │       └── sendEmail.ts
+│   │
+│   ├── hooks/
+│   │   └── useKeyboardControls.ts
+│   │
+│   ├── context/
+│   │   └── InteractionContext.tsx
+│   │
+│   ├── styles/
+│   │   └── globals.css
+│   │
+│   └── data/
+│       ├── projects.ts
+│       ├── timeline.ts
+│       └── skills.ts
+│
+├── .env.local
+├── tailwind.config.js
+├── tsconfig.json
+├── next.config.js
+├── package.json
+└── README.md
+✨ Mong muốn mở rộng sau này:
+Tạo thêm “Thế giới phụ” (map 2) dành riêng cho blog hoặc minigame.
+
+Tích hợp Markdown Blog bằng MDX hoặc CMS đơn giản (Notion, Sanity).
+
+Thêm tính năng “Dev mode”: ghi lại log học tập gần đây hoặc trạng thái hiện tại của tôi.
+
+Có thể xuất JSON để hiển thị timeline phát triển bản thân theo kiểu cây kỹ năng hoặc hành trình.
+
+📌 Style cảm hứng:
+Cảm hứng: https://bruno-simon.com
+
+Phong cách: hoạt hình dễ thương, low poly, nhẹ nhàng. Gần giống Ghibli/Animal Crossing nhưng đậm chất dev.
+
+Animation nhân vật mượt, môi trường không quá nặng.
+
+✅ Mục tiêu đầu tiên:
+Dựng 1 scene đơn giản với nhân vật có thể điều khiển, đứng trong một phòng nhỏ.
+
+Có thể tương tác với ít nhất 1 object (hiện popup giới thiệu).
+
+Kết hợp canvas + UI chuẩn responsive.
+
+Tối ưu để nâng cấp về sau.
