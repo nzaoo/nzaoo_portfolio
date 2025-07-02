@@ -1,4 +1,10 @@
 {
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
   "dependencies": {
     "@react-three/drei": "^10.4.2",
     "@react-three/fiber": "^9.1.4",
