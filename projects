@@ -120,3 +120,4 @@ Có thể tương tác với ít nhất 1 object (hiện popup giới thiệu).
 Kết hợp canvas + UI chuẩn responsive.
 
 Tối ưu để nâng cấp về sau.
+ và tôi sẽ giới thiệu với bạn  character_walk.glb là hành động đi bộ  character_running.glblaf hành động chạy , character_Crouch_To_Stand.glb là hành động khi mở đầu dự án thì nhân vật sẽ từ từ chuyển động đứng dậy và cuối cùng character_Seated_Idle.glb là hành động khi nhân vật vào bàn ngồi
