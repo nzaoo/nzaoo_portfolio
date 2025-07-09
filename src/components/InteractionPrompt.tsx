@@ -24,7 +24,7 @@ const promptVariants = {
     scale: 1,
     transition: {
       duration: 0.3,
-      ease: "easeOut"
+      ease: [0.4, 0, 0.2, 1]
     }
   },
   exit: { 
@@ -33,7 +33,7 @@ const promptVariants = {
     scale: 0.9,
     transition: {
       duration: 0.2,
-      ease: "easeIn"
+      ease: [0.4, 0, 0.2, 1]
     }
   }
 };

@@ -8,15 +8,24 @@ import CameraController from './CameraController';
 import UIOverlay from './UIOverlay';
 import { Position, InteractiveContent, InteractiveObject as InteractiveObjectType } from '../data/types';
 
+// Thêm icon emoji cho từng object
+const objectIcons: Record<string, string> = {
+  about: '👤',
+  projects: '💻',
+  blog: '📚',
+  contact: '🚪',
+  lab: '🔬',
+};
+
 const Portfolio3D: React.FC = () => {
   const [characterPosition, setCharacterPosition] = useState<Position>({ x: 0, y: 0, z: 0 });
   const [activeInteraction, setActiveInteraction] = useState<InteractiveContent | null>(null);
 
-  // Dữ liệu tương tác
+  // Bố trí lại các object trong phòng
   const interactiveObjects: InteractiveObjectType[] = [
     {
       id: 'about',
-      position: [-2, 0.5, -2],
+      position: [0, 0.5, 0], // Giữa phòng
       label: 'Giới thiệu',
       content: {
         title: 'Về tôi',
@@ -25,7 +34,7 @@ const Portfolio3D: React.FC = () => {
     },
     {
       id: 'projects',
-      position: [2, 0.5, -2],
+      position: [3, 0.5, -2], // Bàn máy tính
       label: 'Dự án',
       content: {
         title: 'Dự án của tôi',
@@ -33,17 +42,35 @@ const Portfolio3D: React.FC = () => {
       }
     },
     {
-      id: 'skills',
-      position: [0, 0.5, 2],
-      label: 'Kỹ năng',
+      id: 'blog',
+      position: [-3, 0.5, -2], // Giá sách
+      label: 'Blog',
       content: {
-        title: 'Kỹ năng & Công nghệ',
-        content: 'React, Next.js, Three.js, TypeScript, Node.js, và nhiều công nghệ khác. Tôi luôn cập nhật và học hỏi những xu hướng mới nhất trong lập trình.'
+        title: 'Blog & Nhật ký học tập',
+        content: 'Chia sẻ kiến thức, kinh nghiệm và hành trình học tập lập trình, công nghệ.'
       }
-    }
+    },
+    {
+      id: 'contact',
+      position: [0, 0.5, 4], // Cửa ra
+      label: 'Liên hệ & CV',
+      content: {
+        title: 'Liên hệ & Tải CV',
+        content: 'Email: your.email@example.com\nGitHub: github.com/yourusername\nLinkedIn: linkedin.com/in/yourprofile\nTải CV tại đây.'
+      }
+    },
+    {
+      id: 'lab',
+      position: [0, 0.5, -4], // Bàn lab
+      label: 'Playground',
+      content: {
+        title: 'Playground - Thử nghiệm code',
+        content: 'Nơi thử nghiệm các ý tưởng, demo nhỏ, hiệu ứng, animation, v.v.'
+      }
+    },
   ];
 
-  // Tính khoảng cách để hiển thị tooltip
+  // Tính khoảng cách để hiển thị hiệu ứng near
   const getDistance = (pos1: Position, pos2: { x: number; z: number }) => {
     return Math.sqrt(
       Math.pow(pos1.x - pos2.x, 2) + 
@@ -59,7 +86,7 @@ const Portfolio3D: React.FC = () => {
     <div className="w-full h-screen bg-gradient-to-b from-blue-900 to-purple-900 relative">
       {/* Canvas 3D */}
       <Canvas
-        camera={{ position: [0, 3, 5], fov: 75 }}
+        camera={{ position: [0, 3, 7], fov: 75 }}
         style={{ width: '100%', height: '100%' }}
       >
         <ambientLight intensity={0.5} />
@@ -76,7 +103,7 @@ const Portfolio3D: React.FC = () => {
           <InteractiveObject
             key={obj.id}
             position={obj.position}
-            label={obj.label}
+            label={objectIcons[obj.id] + ' ' + obj.label}
             onInteract={() => handleInteraction(obj.content)}
             isNear={getDistance(characterPosition, { x: obj.position[0], z: obj.position[2] }) < 1.5}
           />
@@ -88,16 +115,16 @@ const Portfolio3D: React.FC = () => {
       </Canvas>
 
       {/* Instructions */}
-      <div className="absolute top-4 left-4 bg-black bg-opacity-50 text-white p-4 rounded-lg">
-        <h3 className="font-bold mb-2">Hướng dẫn:</h3>
-        <p className="text-sm">• WASD: Di chuyển nhân vật</p>
-        <p className="text-sm">• Click vào các object để tương tác</p>
-        <p className="text-sm">• Đến gần object để xem hiệu ứng</p>
+      <div className="absolute top-4 left-4 bg-black bg-opacity-50 text-white p-4 rounded-lg shadow-lg backdrop-blur-md">
+        <h3 className="font-bold mb-2 text-lg flex items-center gap-2">Hướng dẫn <span>🎮</span></h3>
+        <p className="text-sm">• <b>WASD</b>: Di chuyển nhân vật</p>
+        <p className="text-sm">• <b>Enter</b>: Tương tác object</p>
+        <p className="text-sm">• <b>Đến gần object</b>: Hiệu ứng phát sáng</p>
       </div>
 
       {/* Character status */}
-      <div className="absolute top-4 right-4 bg-black bg-opacity-50 text-white p-4 rounded-lg">
-        <h3 className="font-bold mb-2">Vị trí nhân vật:</h3>
+      <div className="absolute top-4 right-4 bg-black bg-opacity-50 text-white p-4 rounded-lg shadow-lg backdrop-blur-md">
+        <h3 className="font-bold mb-2 text-lg">Vị trí nhân vật</h3>
         <p className="text-sm">X: {characterPosition.x.toFixed(2)}</p>
         <p className="text-sm">Z: {characterPosition.z.toFixed(2)}</p>
       </div>
