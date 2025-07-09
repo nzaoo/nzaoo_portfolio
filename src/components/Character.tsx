@@ -47,7 +47,8 @@ function CharacterModel({ position, animation, setPosition, direction }: Charact
       .catch(() => setModelPath(FALLBACK_MODEL));
   }, []);
 
-  const { scene, animations } = useGLTF<THREE.Group>(modelPath);
+  // Sửa lỗi: bỏ generic <THREE.Group> khỏi useGLTF
+  const { scene, animations } = useGLTF(modelPath);
   const ref = useRef<THREE.Group>(null);
   const mixer = useRef<THREE.AnimationMixer>();
   const actionRef = useRef<THREE.AnimationAction | null>(null);
