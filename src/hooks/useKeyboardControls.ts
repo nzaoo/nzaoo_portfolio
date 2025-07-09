@@ -1,70 +1,37 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Keys } from '../data/types';
 
-export type Direction = {
-  forward: boolean;
-  backward: boolean;
-  left: boolean;
-  right: boolean;
-};
-
-const initial: Direction = {
-  forward: false,
-  backward: false,
-  left: false,
-  right: false,
-};
-
-export default function useKeyboardControls() {
-  const [direction, setDirection] = useState<Direction>(initial);
+export const useKeyboardControls = (): Keys => {
+  const [keys, setKeys] = useState<Keys>({
+    w: false,
+    a: false,
+    s: false,
+    d: false,
+  });
 
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      switch (e.code) {
-        case 'KeyW':
-        case 'ArrowUp':
-          setDirection((d) => ({ ...d, forward: true }));
-          break;
-        case 'KeyS':
-        case 'ArrowDown':
-          setDirection((d) => ({ ...d, backward: true }));
-          break;
-        case 'KeyA':
-        case 'ArrowLeft':
-          setDirection((d) => ({ ...d, left: true }));
-          break;
-        case 'KeyD':
-        case 'ArrowRight':
-          setDirection((d) => ({ ...d, right: true }));
-          break;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const key = event.key.toLowerCase();
+      if (key in keys) {
+        setKeys(prev => ({ ...prev, [key]: true }));
       }
     };
-    const handleKeyUp = (e: KeyboardEvent) => {
-      switch (e.code) {
-        case 'KeyW':
-        case 'ArrowUp':
-          setDirection((d) => ({ ...d, forward: false }));
-          break;
-        case 'KeyS':
-        case 'ArrowDown':
-          setDirection((d) => ({ ...d, backward: false }));
-          break;
-        case 'KeyA':
-        case 'ArrowLeft':
-          setDirection((d) => ({ ...d, left: false }));
-          break;
-        case 'KeyD':
-        case 'ArrowRight':
-          setDirection((d) => ({ ...d, right: false }));
-          break;
+
+    const handleKeyUp = (event: KeyboardEvent) => {
+      const key = event.key.toLowerCase();
+      if (key in keys) {
+        setKeys(prev => ({ ...prev, [key]: false }));
       }
     };
+
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
+
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
     };
   }, []);
 
-  return direction;
-} 
+  return keys;
+}; 

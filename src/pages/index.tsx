@@ -1,10 +1,5 @@
-import CanvasScene from '../components/CanvasScene';
-import { InteractionProvider } from '../context/InteractionContext';
+import Portfolio3D from '../components/Portfolio3D';
 
 export default function Home() {
-  return (
-    <InteractionProvider>
-      <CanvasScene />
-    </InteractionProvider>
-  );
+  return <Portfolio3D />;
 } 
