@@ -43,3 +43,7 @@
       "last 1 safari version"
     ]
   },
+  "devDependencies": {
+    "@types/three": "^0.178.1"
+  }
+}
